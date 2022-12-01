@@ -10,9 +10,9 @@
         <version>2022.1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>aoc-common</artifactId>
-    <version>${project.parent.version}</version>
-    <name>Common</name>
+    <artifactId>1-calorie-counting</artifactId>
+    <version>2022.1.0-SNAPSHOT</version>
+    <name>Day 1: Calorie Counting</name>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -31,6 +31,11 @@
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>be.thebeehive.wouter-bauweraerts</groupId>
+            <artifactId>aoc-common</artifactId>
+            <version>${project.parent.version}</version>
         </dependency>
     </dependencies>
 
@@ -74,4 +79,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>
