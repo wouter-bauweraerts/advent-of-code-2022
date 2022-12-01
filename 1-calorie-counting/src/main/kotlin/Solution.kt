@@ -1,13 +1,15 @@
 import be.thebeehive.wouterbauweraerts.common.readFromFile
 
 fun main(args: Array<String>) {
-    println(calorieCount(readFromFile("input.txt")))
+    println(calorieCount(readFromFile("input.txt"), 1))
+    println(calorieCount(readFromFile("input.txt"), 3))
 }
 
-fun calorieCount(input: String): Int {
+fun calorieCount(input: String, topX: Int): Int {
     return parseElves(input)
-        .maxBy { it.totalAmount() }
-        .totalAmount()
+        .sortedByDescending { it.totalAmount() }
+        .take(topX)
+        .sumOf { it.totalAmount() }
 }
 
 fun parseElves(input: String): List<Elf> {

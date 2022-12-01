@@ -4,7 +4,12 @@ import org.junit.jupiter.api.Test
 
 class CalorieCountingTest {
     @Test
-    internal fun `returns the expected amount of calories`() {
-        assertThat(calorieCount(readFromFile("test-input.txt"))).isEqualTo(24000);
+    internal fun `part 1 returns the expected amount of calories`() {
+        assertThat(calorieCount(readFromFile("test-input.txt"), 1)).isEqualTo(24000);
+    }
+
+    @Test
+    internal fun `part 2 returns the expected amount of calories`() {
+        assertThat(calorieCount(readFromFile("test-input.txt"), 3)).isEqualTo(45000);
     }
 }
