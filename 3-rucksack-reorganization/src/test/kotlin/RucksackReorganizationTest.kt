@@ -7,4 +7,9 @@ class RucksackReorganizationTest {
     internal fun `part 1 returns expected number`() {
         assertThat(rucksackReorganization(readFromFile("test-input.txt"))).isEqualTo(157)
     }
+
+    @Test
+    internal fun `part 2 returns expected`() {
+        assertThat(rucksackBadges(readFromFile("test-input.txt"))).isEqualTo(70)
+    }
 }
