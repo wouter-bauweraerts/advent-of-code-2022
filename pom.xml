@@ -23,6 +23,7 @@
         <module>common</module>
         <module>1-calorie-counting</module>
         <module>2-rock-paper-scissors</module>
+        <module>3-rucksack-reorganization</module>
     </modules>
 
     <build>
