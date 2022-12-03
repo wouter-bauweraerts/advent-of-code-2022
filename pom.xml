@@ -22,6 +22,7 @@
     <modules>
         <module>common</module>
         <module>1-calorie-counting</module>
+        <module>2-rock-paper-scissors</module>
     </modules>
 
     <build>
