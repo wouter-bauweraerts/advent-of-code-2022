@@ -24,6 +24,7 @@
         <module>1-calorie-counting</module>
         <module>2-rock-paper-scissors</module>
         <module>3-rucksack-reorganization</module>
+        <module>4-camp-cleanup</module>
     </modules>
 
     <build>
