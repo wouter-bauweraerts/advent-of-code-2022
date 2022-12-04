@@ -8,8 +8,8 @@ class CampCleanupTest {
         assertThat(campCleanup(readFromFile("test-input.txt"))).isEqualTo(2)
     }
 
-//    @Test
-//    internal fun `part 2 returns expected`() {
-//        assertThat(rucksackBadges(readFromFile("test-input.txt"))).isEqualTo(70)
-//    }
+    @Test
+    internal fun `part 2 returns expected`() {
+        assertThat(campCleanup2(readFromFile("test-input.txt"))).isEqualTo(4)
+    }
 }
