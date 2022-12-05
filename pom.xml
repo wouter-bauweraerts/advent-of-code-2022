@@ -25,6 +25,7 @@
         <module>2-rock-paper-scissors</module>
         <module>3-rucksack-reorganization</module>
         <module>4-camp-cleanup</module>
+        <module>5-supply-stacks</module>
     </modules>
 
     <build>
