@@ -1,7 +1,20 @@
+import be.thebeehive.wouterbauweraerts.common.readFromFile
+import java.util.concurrent.atomic.AtomicInteger
+
+fun main(args: Array<String>) {
+    println("part 1: ${supplyStack(readFromFile("input.txt"))}")
+    println("part 2: ${supplyStack9001(readFromFile("input.txt"))}")
+}
 
 fun supplyStack(input: String): String {
     val parsedInput = parseInput(input);
     return parsedInput.first.process(parsedInput.second)
+        .top()
+}
+
+fun supplyStack9001(input: String): String {
+    val parsedInput = parseInput(input);
+    return parsedInput.first.process9001(parsedInput.second)
         .top()
 }
 
@@ -21,31 +34,53 @@ private fun parseCargo(input: String): Cargo {
     val stacks = lines
         .toList()
         .map {
-            it.replace("    ", "empty ")
+            it.replace("    ", "@")
+                .replace(" ", "")
                 .replace("[", "")
                 .replace("]", "")
         }
     return Cargo(mapStacks(stacks, stackCount))
 }
 
-private fun mapStacks(stacks: List<String>, stackCount: Int): List<Stack> {
-    return stacks.map { mapStack(it, stackCount) }
+private fun mapStacks(stacks: List<String>, stackCount: Int): MutableList<Stack> {
+    val toTranspose = stacks.map { mapStack(it, stackCount) }
+        .toMutableList()
+    val transposed = MutableList(stackCount) { Stack(emptyList<Item>().toMutableList()) }
+    return transpose(transposed, toTranspose)
 }
 
-private fun mapStack(stack: String, stackCount: Int): Stack {
-    val parsed = stack.split(" ")
+fun transpose(target: MutableList<Stack>, source: MutableList<Stack>): MutableList<Stack> {
+    if (source.isEmpty()) {
+        return target
+    }
+
+    val processing = source.removeLast()
+
+    val index = AtomicInteger(0)
+    processing.items.forEach {
+        val targetIndex = index.getAndIncrement()
+        if (!it.isEmpty()) {
+            target[targetIndex].add(listOf(it))
+        }
+    }
+
+    return transpose(target, source)
+}
+
+private fun mapStack(stack: String, stackCount: Int): Stack { // not correct yet
+    val parsed = stack.toCharArray()
         .map { mapItem(it) }
         .toMutableList()
     while (parsed.size < stackCount) {
         parsed.add(Item(null))
     }
-    return Stack(parsed.toList())
+    return Stack(parsed)
 }
 
-private fun mapItem(string: String): Item {
-    return when(string) {
-        "empty" -> Item(null)
-        else -> Item(string.toCharArray()[0])
+private fun mapItem(char: Char): Item {
+    return when(char) {
+        '@' -> Item(null)
+        else -> Item(char)
     }
 }
 
@@ -55,22 +90,67 @@ private fun parseMovements(input: String): List<Movement> {
         .map {
             val match = movementFormat.toRegex().find(it)!!
             val (count, from, to) = match.destructured
-            return@map Movement(count.toInt(), from.toInt(), to.toInt())
+            return@map Movement(count.toInt(), from.toInt() - 1, to.toInt() - 1)
         }
 }
 
 // Data
-data class Cargo(val stacks: List<Stack>){
+data class Cargo(val stacks: MutableList<Stack>){
     fun process(movements: List<Movement>): Cargo {
-        return Cargo(emptyList())
+        if(movements.isEmpty()) {
+            return this
+        }
+        val toProcess = movements.toMutableList()
+        val current = toProcess.removeFirst()
+        return process(current).process(toProcess)
+    }
+
+    fun process(movement: Movement): Cargo {
+        val movingItems = stacks[movement.from].take(movement.count).reversed()
+        stacks[movement.to].add(movingItems)
+
+        return this
+    }
+
+    fun process9001(movements: List<Movement>): Cargo {
+        if(movements.isEmpty()) {
+            return this
+        }
+        val toProcess = movements.toMutableList()
+        val current = toProcess.removeFirst()
+        return process9001(current).process9001(toProcess)
+    }
+
+    fun process9001(movement: Movement): Cargo {
+        val movingItems = stacks[movement.from].take(movement.count)
+        stacks[movement.to].add(movingItems)
+
+        return this
     }
 
     fun top(): String {
-        return ""
+        return stacks.map { it.first() }
+            .map { it.char!! }
+            .joinToString(separator = "")
     }
 }
 
-data class Stack(val items: List<Item>) {}
+data class Stack(val items: MutableList<Item>) {
+    fun take(count: Int): List<Item> {
+        val take = items.filter { !it.isEmpty() }
+            .take(count)
+        take.forEach { items.remove(it) }
+        return take
+    }
+
+    fun add(itemsToAdd: List<Item>) {
+        this.items.addAll(0, itemsToAdd)
+    }
+
+    fun first(): Item {
+        return items.first()
+    }
+}
 
 data class Item(val char: Char?) {
     fun isEmpty(): Boolean {
