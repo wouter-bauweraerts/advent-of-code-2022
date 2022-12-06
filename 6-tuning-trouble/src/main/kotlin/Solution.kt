@@ -1,17 +1,25 @@
 import java.util.concurrent.atomic.AtomicInteger
 
 fun startOfPacketMarker(message: String): Int {
-    val index = AtomicInteger(4)
+    return distinctWindow(message, 4)
+}
 
-    val windows = message.toCharArray()
+fun startOfMessageMarker(message: String): Int {
+    return distinctWindow(message, 14)
+}
+
+private fun distinctWindow(input: String, window: Int): Int {
+    val marker = AtomicInteger(window)
+
+    val windows = input.toCharArray()
         .toList()
-        .windowed(4)
+        .windowed(window)
 
-    for (window in windows) {
-        if (window.toSet().size == 4) {
+    for (w in windows) {
+        if (w.toSet().size == window) {
             break
         }
-        index.incrementAndGet()
+        marker.incrementAndGet()
     }
-    return index.getAndIncrement()
+    return marker.getAndIncrement()
 }
