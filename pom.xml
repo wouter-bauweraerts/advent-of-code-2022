@@ -27,6 +27,7 @@
         <module>4-camp-cleanup</module>
         <module>5-supply-stacks</module>
         <module>6-tuning-trouble</module>
+        <module>7-no-space-left-on-device</module>
     </modules>
 
     <build>
