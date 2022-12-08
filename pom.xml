@@ -28,6 +28,7 @@
         <module>5-supply-stacks</module>
         <module>6-tuning-trouble</module>
         <module>7-no-space-left-on-device</module>
+        <module>8-treetop-treehouse</module>
     </modules>
 
     <build>
