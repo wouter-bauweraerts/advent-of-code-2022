@@ -30,6 +30,7 @@
         <module>7-no-space-left-on-device</module>
         <module>8-treetop-treehouse</module>
         <module>9-rope-bridge</module>
+        <module>10-cathode-ray-tube</module>
     </modules>
 
     <build>
