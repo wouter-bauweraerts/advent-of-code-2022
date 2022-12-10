@@ -9,10 +9,10 @@ fun drawRow(sprites: List<Pair<Int, Int>>): String {
     return sprites.map { it.second }
         .map { it - 1..it + 1 }
         .mapIndexed { crt, sprite ->
-            return@mapIndexed if (sprite.contains(crt)) {
-                "#"
-            } else
-                "."
+            when (sprite.contains(crt)) {
+                true -> "#"
+                false -> "."
+            }
         }.joinToString(separator = "")
 }
 
@@ -27,13 +27,14 @@ fun execute(input: String): List<Pair<Int, Int>> {
 
     return input.split("\n")
         .flatMap { command ->
-            return@flatMap when (command.trim()) {
+            when (command.trim()) {
                 "noop" -> listOf(Pair(cycleCount.getAndIncrement(), xRegister.get()))
                 else -> {
-                    val value = command.trim().substringAfter(" ").toInt()
                     listOf(
                         Pair(cycleCount.getAndIncrement(), xRegister.get()),
-                        Pair(cycleCount.getAndIncrement(), xRegister.getAndAdd(value))
+                        Pair(cycleCount.getAndIncrement(), xRegister.getAndAdd(
+                            command.trim().substringAfter(" ").toInt()
+                        ))
                     )
                 }
             }
