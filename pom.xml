@@ -31,6 +31,7 @@
         <module>8-treetop-treehouse</module>
         <module>9-rope-bridge</module>
         <module>10-cathode-ray-tube</module>
+        <module>11-monkey-in-the-middle</module>
     </modules>
 
     <build>
