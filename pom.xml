@@ -32,6 +32,7 @@
         <module>9-rope-bridge</module>
         <module>10-cathode-ray-tube</module>
         <module>11-monkey-in-the-middle</module>
+        <module>12-hill-climbing-algorithm</module>
     </modules>
 
     <build>
