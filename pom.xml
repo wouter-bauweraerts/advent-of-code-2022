@@ -37,6 +37,7 @@
         <module>14-regolith-reservoir</module>
         <module>15-beacon-exclusion-zone</module>
         <module>16-proboscidea-volcanium</module>
+        <module>17-pyroclastic-flow</module>
     </modules>
 
     <build>
