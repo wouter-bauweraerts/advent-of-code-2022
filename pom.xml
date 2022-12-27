@@ -38,6 +38,7 @@
         <module>15-beacon-exclusion-zone</module>
         <module>16-proboscidea-volcanium</module>
         <module>17-pyroclastic-flow</module>
+        <module>18-boiling-boulders</module>
     </modules>
 
     <build>
