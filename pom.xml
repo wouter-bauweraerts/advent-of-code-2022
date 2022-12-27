@@ -35,6 +35,7 @@
         <module>12-hill-climbing-algorithm</module>
         <module>13-distress-signal</module>
         <module>14-regolith-reservoir</module>
+        <module>15-beacon-exclusion-zone</module>
     </modules>
 
     <build>
